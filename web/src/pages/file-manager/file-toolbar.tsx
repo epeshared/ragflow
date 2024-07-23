@@ -1,5 +1,5 @@
 import { ReactComponent as DeleteIcon } from '@/assets/svg/delete.svg';
-import { useTranslate } from '@/hooks/commonHooks';
+import { useTranslate } from '@/hooks/common-hooks';
 import {
   DownOutlined,
   FileTextOutlined,
@@ -19,17 +19,19 @@ import {
 } from 'antd';
 import { useMemo } from 'react';
 import {
-  useFetchDocumentListOnMount,
   useHandleBreadcrumbClick,
   useHandleDeleteFile,
-  useHandleSearchChange,
   useSelectBreadcrumbItems,
 } from './hooks';
 
-import { useSelectParentFolderList } from '@/hooks/fileManagerHooks';
+import {
+  IListResult,
+  useSelectParentFolderList,
+} from '@/hooks/file-manager-hooks';
 import styles from './index.less';
 
-interface IProps {
+interface IProps
+  extends Pick<IListResult, 'searchString' | 'handleInputChange'> {
   selectedRowKeys: string[];
   showFolderCreateModal: () => void;
   showFileUploadModal: () => void;
@@ -41,10 +43,10 @@ const FileToolbar = ({
   showFolderCreateModal,
   showFileUploadModal,
   setSelectedRowKeys,
+  searchString,
+  handleInputChange,
 }: IProps) => {
   const { t } = useTranslate('knowledgeDetails');
-  useFetchDocumentListOnMount();
-  const { handleInputChange, searchString } = useHandleSearchChange();
   const breadcrumbItems = useSelectBreadcrumbItems();
   const { handleBreadcrumbClick } = useHandleBreadcrumbClick();
   const parentFolderList = useSelectParentFolderList();

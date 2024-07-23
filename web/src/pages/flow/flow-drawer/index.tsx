@@ -1,4 +1,4 @@
-import { useTranslate } from '@/hooks/commonHooks';
+import { useTranslate } from '@/hooks/common-hooks';
 import { IModalProps } from '@/interfaces/common';
 import { Drawer, Flex, Form, Input } from 'antd';
 import { useEffect } from 'react';
@@ -14,9 +14,11 @@ import { useHandleFormValuesChange, useHandleNodeNameChange } from '../hooks';
 import KeywordExtractForm from '../keyword-extract-form';
 import MessageForm from '../message-form';
 import OperatorIcon from '../operator-icon';
+import PubMedForm from '../pubmed-form';
 import RelevantForm from '../relevant-form';
 import RetrievalForm from '../retrieval-form';
 import RewriteQuestionForm from '../rewrite-question-form';
+import WikipediaForm from '../wikipedia-form';
 
 import styles from './index.less';
 
@@ -36,6 +38,8 @@ const FormMap = {
   [Operator.Baidu]: BaiduForm,
   [Operator.DuckDuckGo]: DuckDuckGoForm,
   [Operator.KeywordExtract]: KeywordExtractForm,
+  [Operator.Wikipedia]: WikipediaForm,
+  [Operator.PubMed]: PubMedForm,
 };
 
 const EmptyContent = () => <div>empty</div>;

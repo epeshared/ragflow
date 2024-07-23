@@ -1,17 +1,17 @@
-import { useSetModalState, useShowDeleteConfirm } from '@/hooks/commonHooks';
+import { useSetModalState, useShowDeleteConfirm } from '@/hooks/common-hooks';
 import {
   useConnectToKnowledge,
   useCreateFolder,
+  useDeleteFile,
   useFetchFileList,
   useFetchParentFolderList,
-  useRemoveFile,
   useRenameFile,
   useSelectFileList,
   useSelectParentFolderList,
   useUploadFile,
-} from '@/hooks/fileManagerHooks';
-import { useGetPagination, useSetPagination } from '@/hooks/logicHooks';
-import { useOneNamespaceEffectsLoading } from '@/hooks/storeHooks';
+} from '@/hooks/file-manager-hooks';
+import { useGetPagination, useSetPagination } from '@/hooks/logic-hooks';
+import { useOneNamespaceEffectsLoading } from '@/hooks/store-hooks';
 import { IFile } from '@/interfaces/database/file-manager';
 import { PaginationProps } from 'antd';
 import { TableRowSelection } from 'antd/es/table/interface';
@@ -215,14 +215,14 @@ export const useHandleDeleteFile = (
   fileIds: string[],
   setSelectedRowKeys: (keys: string[]) => void,
 ) => {
-  const removeDocument = useRemoveFile();
+  const { deleteFile: removeDocument } = useDeleteFile();
   const showDeleteConfirm = useShowDeleteConfirm();
   const parentId = useGetFolderId();
 
   const handleRemoveFile = () => {
     showDeleteConfirm({
       onOk: async () => {
-        const retcode = await removeDocument(fileIds, parentId);
+        const retcode = await removeDocument({ fileIds, parentId });
         if (retcode === 0) {
           setSelectedRowKeys([]);
         }
