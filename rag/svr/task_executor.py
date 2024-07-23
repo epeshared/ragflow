@@ -53,6 +53,7 @@ from api.db.services.llm_service import LLMBundle
 from api.utils.file_utils import get_project_base_directory
 from rag.utils.redis_conn import REDIS_CONN
 
+
 BATCH_SIZE = 64
 
 FACTORY = {

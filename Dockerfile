@@ -4,6 +4,10 @@ USER  root
 WORKDIR /ragflow
 
 ADD ./web ./web
+RUN npm config set proxy http://child-prc.intel.com:913
+RUN npm config set https-proxy http://child-prc.intel.com:913
+# RUN npm config set registry https://registry.npmmirror.com/ 
+# RUN npm config set fetch-timeout 600 && npm config set connect-timeout 600
 RUN cd ./web && npm i --force && npm run build
 
 ADD ./api ./api

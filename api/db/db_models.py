@@ -344,6 +344,7 @@ class DataBaseModel(BaseModel):
 
 @DB.connection_context()
 def init_database_tables(alter_fields=[]):
+    print("===============>"+str(__name__))
     members = inspect.getmembers(sys.modules[__name__], inspect.isclass)
     table_objs = []
     create_failed_list = []
