@@ -12,7 +12,7 @@ mysql:
 minio:
   user: 'rag_flow'
   password: 'infini_rag_flow'
-  host: 'minio:9000'
+  host: '10.238.151.96:9000'
 es:
   hosts: 'http://10.238.151.96:9200'
   username: 'elastic'

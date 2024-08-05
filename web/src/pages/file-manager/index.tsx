@@ -1,4 +1,4 @@
-import { useFetchNextFileList } from '@/hooks/file-manager-hooks';
+import { useFetchFileList } from '@/hooks/file-manager-hooks';
 import { IFile } from '@/interfaces/database/file-manager';
 import { formatDate } from '@/utils/date';
 import { Button, Flex, Space, Table, Tag, Typography } from 'antd';
@@ -12,15 +12,14 @@ import {
   useHandleUploadFile,
   useNavigateToOtherFolder,
   useRenameCurrentFile,
-  useSelectFileListLoading,
 } from './hooks';
 
 import FileUploadModal from '@/components/file-upload-modal';
 import RenameModal from '@/components/rename-modal';
 import SvgIcon from '@/components/svg-icon';
 import { useTranslate } from '@/hooks/common-hooks';
-import { formatNumberWithThousandsSeparator } from '@/utils/commonUtil';
-import { getExtension } from '@/utils/documentUtils';
+import { formatNumberWithThousandsSeparator } from '@/utils/common-util';
+import { getExtension } from '@/utils/document-util';
 import ConnectToKnowledgeModal from './connect-to-knowledge-modal';
 import FolderCreateModal from './folder-create-modal';
 import styles from './index.less';
@@ -31,7 +30,6 @@ const FileManager = () => {
   const { t } = useTranslate('fileManager');
   // const fileList = useSelectFileList();
   const { rowSelection, setSelectedRowKeys } = useGetRowSelection();
-  const loading = useSelectFileListLoading();
   const navigateToOtherFolder = useNavigateToOtherFolder();
   const {
     fileRenameVisible,
@@ -64,8 +62,8 @@ const FileManager = () => {
     connectToKnowledgeLoading,
   } = useHandleConnectToKnowledge();
   // const { pagination } = useGetFilesPagination();
-  const { pagination, data, searchString, handleInputChange } =
-    useFetchNextFileList();
+  const { pagination, data, searchString, handleInputChange, loading } =
+    useFetchFileList();
   const columns: ColumnsType<IFile> = [
     {
       title: t('name'),

@@ -1,6 +1,5 @@
 import { useSetModalState } from '@/hooks/common-hooks';
 import { useFetchFlow, useResetFlow, useSetFlow } from '@/hooks/flow-hooks';
-import { useFetchLlmList } from '@/hooks/llm-hooks';
 import { IGraph } from '@/interfaces/database/flow';
 import { useIsFetching } from '@tanstack/react-query';
 import React, {
@@ -31,11 +30,14 @@ import {
   NodeMap,
   Operator,
   RestrictedUpstreamMap,
+  initialArXivValues,
   initialBaiduValues,
   initialBeginValues,
+  initialBingValues,
   initialCategorizeValues,
   initialDuckValues,
   initialGenerateValues,
+  initialGoogleValues,
   initialKeywordExtractValues,
   initialMessageValues,
   initialPubMedValues,
@@ -69,7 +71,7 @@ export const useSelectCanvasData = () => {
 };
 
 export const useInitializeOperatorParams = () => {
-  const llmId = useFetchModelId(true);
+  const llmId = useFetchModelId();
 
   const initialFormValuesMap = useMemo(() => {
     return {
@@ -92,6 +94,9 @@ export const useInitializeOperatorParams = () => {
       [Operator.Baidu]: initialBaiduValues,
       [Operator.Wikipedia]: initialWikipediaValues,
       [Operator.PubMed]: initialPubMedValues,
+      [Operator.ArXiv]: initialArXivValues,
+      [Operator.Google]: initialGoogleValues,
+      [Operator.Bing]: initialBingValues,
     };
   }, [llmId]);
 
@@ -280,8 +285,6 @@ export const useFetchDataOnMount = () => {
   }, [setGraphInfo, data]);
 
   useWatchGraphChange();
-
-  useFetchLlmList();
 
   useEffect(() => {
     refetch();
