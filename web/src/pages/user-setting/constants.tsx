@@ -22,4 +22,5 @@ export const LocalLlmFactories = [
   'Xinference',
   'LocalAI',
   'LM-Studio',
+  'OpenAI-API-Compatible',
 ];

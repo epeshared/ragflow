@@ -26,7 +26,7 @@ from rag.utils.es_conn import ELASTICSEARCH
 from rag.utils.minio_conn import MINIO
 from rag.nlp import search
 
-from api.db import FileType, TaskStatus
+from api.db import FileType, TaskStatus, ParserType
 from api.db.db_models import DB, Knowledgebase, Tenant, Task
 from api.db.db_models import Document
 from api.db.services.common_service import CommonService
@@ -317,7 +317,8 @@ class DocumentService(CommonService):
                     if 0 <= t.progress < 1:
                         finished = False
                     prg += t.progress if t.progress >= 0 else 0
-                    msg.append(t.progress_msg)
+                    if t.progress_msg not in msg:
+                        msg.append(t.progress_msg)
                     if t.progress == -1:
                         bad += 1
                 prg /= len(tsks)
